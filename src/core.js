@@ -7,12 +7,14 @@ var jDrupal = {};
 jDrupal.init = function() {
   // General properties.
   jDrupal.csrf_token = false;
+  jDrupal.oauth_token = false;
   jDrupal.sessid = null;
   jDrupal.modules = {};
   jDrupal.connected = false; // Will be equal to true after the system connect.
   jDrupal.settings = {
     sitePath: null,
-    basePath: '/'
+    basePath: '/',
+    use_oauth: false
   };
 };
 

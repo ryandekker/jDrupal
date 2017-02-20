@@ -37,6 +37,27 @@ jDrupal.token = function() {
 };
 
 /**
+ * Retrieves an oauth token from a couple of potential places.
+ * @returns the oauth token.
+ */
+jDrupal.oauthToken = function() {
+  if (this.settings.use_oauth) {
+    if (this.oauthToken) {
+      return this.oauthToken;
+    }
+    else if (typeof this.settings.get_oauth_token === 'function') {
+      var token = this.settings.get_oauth_token();
+      if (token) {
+        this.oauthToken = token;
+        return token;
+      }
+    }
+  }
+
+  return false;
+};
+
+/**
  * Connects to Drupal and sets the currentUser object.
  * @returns {Promise}
  */

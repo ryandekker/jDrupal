@@ -241,9 +241,16 @@ jDrupal.Entity.prototype.save = function() {
           service: entityType,
           resource: resource
         };
-        req.open(method, jDrupal.restPath() + path);
+        req.open(method, jDrupal.restPath() + path + '?_format=json');
         req.setRequestHeader('Content-type', 'application/json');
         req.setRequestHeader('X-CSRF-Token', token);
+
+        // Allow for OAuth authorization (if in use)
+        var oauthToken = jDrupal.oauthToken();
+        if (oauthToken) {
+          req.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
+        }
+
         req.onload = function() {
           _entity.postSave(req).then(function() {
             if (req.status == 200) {
@@ -328,9 +335,16 @@ jDrupal.Entity.prototype.delete = function(options) {
           service: entityType,
           resource: 'delete'
         };
-        req.open('DELETE', path);
+        req.open('DELETE', jDrupal.restPath() +  path + '?_format=json');
         req.setRequestHeader('Content-type', 'application/json');
         req.setRequestHeader('X-CSRF-Token', token);
+
+        // Allow for OAuth authorization (if in use)
+        var oauthToken = jDrupal.oauthToken();
+        if (oauthToken) {
+          req.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
+        }
+
         req.onload = function() {
           _entity.postDelete(req).then(function() {
             if (req.status == 204) {

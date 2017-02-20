@@ -14,7 +14,9 @@ jDrupal.init = function() {
   jDrupal.settings = {
     sitePath: null,
     basePath: '/',
-    use_oauth: false
+    useOauth: false,
+    // If using OAuth, this must be a function to retrieve the token.
+    getOauthToken: null
   };
 };
 

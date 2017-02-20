@@ -41,12 +41,12 @@ jDrupal.token = function() {
  * @returns the oauth token.
  */
 jDrupal.oauthToken = function() {
-  if (this.settings.use_oauth) {
+  if (this.settings.useOauth) {
     if (this.oauthToken) {
       return this.oauthToken;
     }
-    else if (typeof this.settings.get_oauth_token === 'function') {
-      var token = this.settings.get_oauth_token();
+    else if (typeof this.settings.getOauthToken === 'function') {
+      var token = this.settings.getOauthToken();
       if (token) {
         this.oauthToken = token;
         return token;

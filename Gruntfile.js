@@ -24,17 +24,27 @@ module.exports = function(grunt) {
         dest: '<%= pkg.name %>.min.js'
       }
     },
+    concat: {
+      options: {
+          separator: ''
+      },
+      build: {
+        src: jdrupal_grunt_src,
+        dest: '<%= pkg.name %>.js'
+      }
+    },
     watch: {
       files: jdrupal_grunt_src,
-      tasks: ['uglify']
+      tasks: ['concat', 'uglify']
     }
   });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify', 'watch']);
+  grunt.registerTask('default', ['concat', 'uglify', 'watch']);
 
 };

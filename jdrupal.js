@@ -360,13 +360,13 @@ jDrupal.token = function() {
  */
 jDrupal.oauthToken = function() {
   if (this.settings.useOauth) {
-    if (this.oauthToken) {
-      return this.oauthToken;
+    if (this.oauth_token) {
+      return this.oauth_token;
     }
     else if (typeof this.settings.getOauthToken === 'function') {
       var token = this.settings.getOauthToken();
       if (token) {
-        this.oauthToken = token;
+        this.oauth_token = token;
         return token;
       }
     }

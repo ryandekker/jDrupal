@@ -23,6 +23,11 @@ jDrupal.token = function() {
       resource: 'token'
     };
     req.open('GET', jDrupal.restPath() + 'rest/session/token');
+    // Allow for OAuth authorization (if in use)
+    var oauthToken = jDrupal.oauthToken();
+    if (oauthToken) {
+      req.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
+    }
     req.onload = function() {
       if (req.status == 200) {
         var invoke = jDrupal.moduleInvokeAll('rest_post_process', req);
@@ -69,6 +74,13 @@ jDrupal.connect = function() {
       resource: 'connect'
     };
     req.open('GET', jDrupal.restPath() + 'jdrupal/connect?_format=json');
+
+    // Allow for OAuth authorization (if in use)
+    var oauthToken = jDrupal.oauthToken();
+    if (oauthToken) {
+      req.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
+    }
+
     var connected = function() {
       jDrupal.connected = true;
       var result = JSON.parse(typeof req.responseText !== 'undefined' ? req.responseText : req.response);

@@ -152,6 +152,13 @@ jDrupal.Entity.prototype.load = function() {
           resource: 'retrieve'
         };
         req.open('GET', path);
+
+        // Allow for OAuth authorization (if in use)
+        var oauthToken = jDrupal.oauthToken();
+        if (oauthToken) {
+          req.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
+        }
+
         var loaded = function() {
           _entity.entity = JSON.parse(req.response);
           _entity.postLoad(req).then(function() {

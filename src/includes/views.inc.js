@@ -36,7 +36,14 @@ jDrupal.Views.prototype.getView = function() {
       service: 'views',
       resource: null
     };
-    req.open('GET', jDrupal.restPath() + self.getPath());
+    req.open('GET', jDrupal.restPath() + self.getPath()) + '_format=json';
+
+    // Allow for OAuth authorization (if in use).
+    var oauthToken = jDrupal.oauthToken();
+    if (oauthToken) {
+      req.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
+    }
+
     var loaded = function() {
       self.results = JSON.parse(req.response);
       resolve();

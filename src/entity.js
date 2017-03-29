@@ -260,7 +260,7 @@ jDrupal.Entity.prototype.save = function() {
 
         req.onload = function() {
           _entity.postSave(req).then(function() {
-            if (req.status == 200) {
+            if (req.status == 200 || req.status == 201) {
               var invoke = jDrupal.moduleInvokeAll('rest_post_process', req);
               if (!invoke) { resolve(); }
               else { invoke.then(resolve); }
@@ -289,13 +289,13 @@ jDrupal.Entity.prototype.postSave = function(xhr) {
   var self = this;
   return new Promise(function(resolve, reject) {
     // For new entities, grab their id from the Location response header.
-    if (self.isNew()) {
-      var parts = xhr.getResponseHeader('Location').split('/');
-      var entityID =
-        self.entity[self.getEntityKey('id')] = [ {
-          value: parts[parts.length - 1]
-        }];
-    }
+    // if (self.isNew()) {
+    //   var parts = xhr.getResponseHeader('Location').split('/');
+    //   var entityID =
+    //     self.entity[self.getEntityKey('id')] = [ {
+    //       value: parts[parts.length - 1]
+    //     }];
+    // }
     resolve();
   });
 };

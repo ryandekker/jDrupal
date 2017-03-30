@@ -113,7 +113,9 @@ jDrupal.Node.prototype.preSave = function(options) {
       'revision_timestamp',
       'revision_uid',
       'uid',
-      'created'
+      'created',
+      'promote',
+      'sticky'
     ];
     for (var i = 0; i < protected_fields.length; i++) {
       delete self.entity[protected_fields[i]];

@@ -343,6 +343,7 @@ jDrupal.token = function() {
     req.open('GET', jDrupal.restPath() + 'rest/session/token');
     // Allow for OAuth authorization (if in use)
     var oauthToken = jDrupal.oauthToken();
+    req.withCredentials = true;
     if (oauthToken) {
       req.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
     }
@@ -395,6 +396,7 @@ jDrupal.connect = function() {
 
     // Allow for OAuth authorization (if in use)
     var oauthToken = jDrupal.oauthToken();
+    req.withCredentials = true;
     if (oauthToken) {
       req.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
     }
@@ -564,6 +566,7 @@ jDrupal.Views.prototype.getView = function() {
 
     // Allow for OAuth authorization (if in use).
     var oauthToken = jDrupal.oauthToken();
+    req.withCredentials = true;
     if (oauthToken) {
       req.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
     }
@@ -754,6 +757,7 @@ jDrupal.Entity.prototype.load = function() {
 
         // Allow for OAuth authorization (if in use)
         var oauthToken = jDrupal.oauthToken();
+        req.withCredentials = true;
         if (oauthToken) {
           req.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
         }
@@ -853,6 +857,7 @@ jDrupal.Entity.prototype.save = function() {
 
         // Allow for OAuth authorization (if in use)
         var oauthToken = jDrupal.oauthToken();
+        req.withCredentials = true;
         if (oauthToken) {
           req.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
         }
@@ -947,6 +952,7 @@ jDrupal.Entity.prototype.delete = function(options) {
 
         // Allow for OAuth authorization (if in use)
         var oauthToken = jDrupal.oauthToken();
+        req.withCredentials = true;
         if (oauthToken) {
           req.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
         }

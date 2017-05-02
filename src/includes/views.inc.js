@@ -40,6 +40,7 @@ jDrupal.Views.prototype.getView = function() {
 
     // Allow for OAuth authorization (if in use).
     var oauthToken = jDrupal.oauthToken();
+    req.withCredentials = true;
     if (oauthToken) {
       req.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
     }
